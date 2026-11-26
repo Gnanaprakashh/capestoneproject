@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="h2">Budget Planner</h1>
+<p class="text-muted">Enter your own cost assumptions. The planner selects a high-scoring combination of sample stops and stays; it does not fetch live prices.</p>
+{% if error %}<div class="alert alert-warning">{{ error }}</div>{% endif %}
+<form method="post" action="{{ url_for('budget_planner') }}" class="card card-body mb-4">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <fieldset class="mb-3">
+        <legend class="form-label fs-6">Interests</legend>
+        <div class="d-flex flex-wrap gap-3">
+            {% for category in categories %}
+                <label class="form-check">
+                    <input class="form-check-input" type="checkbox" name="interests" value="{{ category }}"
+                           {% if category in selected_interests %}checked{% endif %}>
+                    <span class="form-check-label">{{ category }}</span>
+                </label>
+            {% endfor %}
+        </div>
+    </fieldset>
+    <div class="row g-3">
+        {% for field, label, minval, maxval in [
+            ("days", "Trip days", 1, 14),
+            ("travelers", "Travelers", 1, 20),
+            ("budget", "Total budget (₹)", 0, none),
+            ("hotel_per_night", "Max hotel/night (₹)", 0, none),
+            ("meals_per_person_day", "Food/person/day (₹)", 0, none),
+            ("activity_per_stop", "Activities/stop (₹)", 0, none)
+        ] %}
+            <div class="col-sm-6 col-lg-4">
+                <label class="form-label" for="{{ field }}">{{ label }}</label>
+                <input class="form-control" type="number" id="{{ field }}" name="{{ field }}"
+                       min="{{ minval }}" {% if maxval is not none %}max="{{ maxval }}"{% endif %}
+                       value="{{ values[field] }}" required>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="mt-3"><button class="btn btn-primary">Optimize sample plan</button></div>
+</form>
+{% if plan %}
+    <section class="card card-body">
+        <h2 class="h4">Estimated plan</h2>
+        <p class="text-muted">Sample estimate only. Transport, taxes, and actual vendor prices are excluded.</p>
+        <div class="row g-2">
+            <div class="col-md-3"><strong>Stay:</strong> ₹{{ plan.hotel_cost }}</div>
+            <div class="col-md-3"><strong>Meals:</strong> ₹{{ plan.meal_cost }}</div>
+            <div class="col-md-3"><strong>Activities:</strong> ₹{{ plan.activity_cost }}</div>
+            <div class="col-md-3"><strong>Total:</strong> ₹{{ plan.total_cost }}</div>
+        </div>
+        {% if plan.within_budget %}
+            <p class="text-success mt-3">Within budget by ₹{{ plan.remaining }}. Selected {{ plan.optimized_stops }} of {{ plan.original_stops }} candidate stops.</p>
+        {% else %}
+            <p class="text-danger mt-3">The lowest-cost sample combination exceeds budget by ₹{{ -plan.remaining }}. Try different assumptions.</p>
+        {% endif %}
+        {% if plan.selected_hotel %}
+            <p>Sample stay selected: <strong>{{ plan.selected_hotel.Place }}</strong>, estimated ₹{{ plan.selected_hotel.Estimated_Nightly_Cost }} / night.
+                <a target="_blank" rel="noopener" href="https://www.booking.com/searchresults.html?ss={{ plan.selected_hotel.Place|urlencode }}">Check real availability</a>
+            </p>
+        {% endif %}
+        <h3 class="h5">Suggested stops</h3>
+        <ol>
+            {% for place in plan.itinerary.itertuples() %}
+                <li>{{ place.Place }} — {{ place.Category }}</li>
+            {% else %}
+                <li>No attraction stops fit the current sample budget.</li>
+            {% endfor %}
+        </ol>
+    </section>
+{% endif %}
+{% endblock %}

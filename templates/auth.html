@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block body_class %}auth-page{% endblock %}
+{% block content %}
+<section class="auth-backdrop">
+    <div class="col-12 col-md-7 col-lg-5">
+        <div class="card auth-card">
+            <div class="card-body">
+                <p class="auth-kicker mb-2">Telangana Trails</p>
+                <h1 class="h3">{{ "Create an account" if mode == "register" else "Login" }}</h1>
+                {% if error %}<div class="alert alert-warning">{{ error }}</div>{% endif %}
+                <form method="post">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    {% if mode == "register" %}
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input id="name" name="name" class="form-control" required maxlength="100" autocomplete="name">
+                        </div>
+                    {% endif %}
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input id="email" name="email" type="email" class="form-control" required maxlength="255" autocomplete="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input id="password" name="password" type="password" class="form-control" required
+                               minlength="8" autocomplete="{{ 'new-password' if mode == 'register' else 'current-password' }}">
+                    </div>
+                    {% if mode == "register" %}
+                        <div class="mb-3">
+                            <label for="confirm_password" class="form-label">Confirm password</label>
+                            <input id="confirm_password" name="confirm_password" type="password" class="form-control"
+                                   required minlength="8" autocomplete="new-password">
+                        </div>
+                    {% endif %}
+                    <button class="btn btn-primary w-100">{{ "Register" if mode == "register" else "Login" }}</button>
+                </form>
+                <p class="mt-3 mb-0 text-muted">
+                    {% if mode == "register" %}Already registered? <a href="{{ url_for('login') }}">Login</a>
+                    {% else %}Need an account? <a href="{{ url_for('register') }}">Register</a>{% endif %}
+                </p>
+                <p class="small text-muted mt-3 mb-0">Charminar photo by <a href="https://commons.wikimedia.org/wiki/File:Charminar_12032013.jpg" target="_blank" rel="noopener">Joydeep</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

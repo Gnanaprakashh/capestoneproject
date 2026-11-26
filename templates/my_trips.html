@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h1 class="h2 mb-1">My Trips</h1>
+        <p class="text-muted mb-0">Your saved itineraries are private to your account.</p>
+    </div>
+    <a class="btn btn-primary" href="{{ url_for('index') }}">Plan a trip</a>
+</div>
+<div class="row g-3">
+    {% for trip in trips %}
+        <div class="col-md-6">
+            <article class="card h-100">
+                <div class="card-body">
+                    <h2 class="h5">{{ trip.title }}</h2>
+                    <p>{{ trip.days }} day(s) · Budget ₹{{ trip.budget }}</p>
+                    <ol>
+                        {% for stop in trip.itinerary %}
+                            <li>Day {{ stop.day }}: {{ stop.place }} <span class="text-muted">({{ stop.category }})</span></li>
+                        {% else %}
+                            <li>No saved stops.</li>
+                        {% endfor %}
+                    </ol>
+                    <a class="btn btn-sm btn-outline-secondary" target="_blank" rel="noopener"
+                       href="https://www.google.com/maps/dir/?api=1&amp;origin={{ trip.start_name|urlencode }}&amp;destination={{ trip.dest_name|urlencode }}">
+                        Open directions
+                    </a>
+                    <form class="d-inline" method="post" action="{{ url_for('delete_trip', trip_id=trip.id) }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+                    </form>
+                </div>
+            </article>
+        </div>
+    {% else %}
+        <div class="col-12"><div class="alert alert-info">No saved trips yet. Plan a trip and choose “Save this trip to My Trips.”</div></div>
+    {% endfor %}
+</div>
+{% endblock %}

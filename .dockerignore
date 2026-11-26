@@ -1,0 +1,7 @@
+.env
+.venv
+.venv-stale
+__pycache__
+*.py[cod]
+instance
+.git

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block body_class %}home-page{% endblock %}
+{% block content %}
+<section class="cinematic-hero">
+    <div class="hero-content">
+        <p class="hero-eyebrow">The Deccan, slowly discovered</p>
+        <h1 class="hero-title">A journey through Telangana.</h1>
+        <p class="hero-description">Ancient stone. Quiet forests. Open roads. Find the places and stories that make the journey yours.</p>
+        <div class="hero-actions d-flex flex-wrap gap-2 mt-4">
+            <a class="btn btn-light btn-lg" href="{{ url_for('index') }}">Plan your journey</a>
+            <a class="btn btn-outline-light btn-lg" href="{{ url_for('explore') }}">Explore destinations</a>
+        </div>
+        <p class="photo-credit">Ananthagiri Hills photo by <a href="https://commons.wikimedia.org/wiki/File:Ananthagiri_forest_in_AP_W_IMG_9371.jpg" target="_blank" rel="noopener">J.M.Garg</a> · <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a></p>
+    </div>
+</section>
+<div class="home-features row g-3">
+    {% set features = [
+        ("Explore Telangana", "Search the included places dataset by name and category.", "explore"),
+        ("Flights", "Open external flight searches for your route.", "flights"),
+        ("Trains", "Search external train providers for your journey.", "trains"),
+        ("Buses", "Search external bus providers for your journey.", "buses"),
+        ("Hotels", "Browse listed stays and check external availability.", "hotels"),
+        ("AI Trip Planner", "Get interest-based recommendations along a road route.", "index"),
+        ("Budget Planner", "Compare your cost assumptions and optimize suggested stops.", "budget_planner"),
+        ("My Trips", "Sign in to save and revisit your itineraries.", "my_trips")
+    ] %}
+    {% for title, description, endpoint in features %}
+        <div class="col-md-6 col-xl-3">
+            <a class="card home-feature-card h-100 text-decoration-none text-dark" href="{{ url_for(endpoint) }}">
+                <div class="card-body">
+                    <h2 class="h5">{{ title }}</h2>
+                    <p class="text-secondary mb-0">{{ description }}</p>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+</div>
+<p class="home-note small text-muted">Travel searches open external sites. Prices, schedules, availability, and bookings are controlled by those providers.</p>
+{% endblock %}

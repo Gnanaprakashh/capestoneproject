@@ -1,0 +1,370 @@
+:root {
+    --trail-forest: #153a34;
+    --trail-deep: #102925;
+    --trail-cream: #f5f1e8;
+    --trail-paper: #fffdf8;
+    --trail-brass: #d3aa69;
+    --trail-ink: #26332f;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--trail-cream);
+    color: var(--trail-ink);
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+h1, h2, h3, h4, h5, h6, .navbar, .btn, input, select, label, .badge {
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.navbar {
+    background: rgba(15, 35, 31, .97) !important;
+    border-bottom: 1px solid rgba(211, 170, 105, .35);
+}
+
+.navbar-brand {
+    letter-spacing: .04em;
+}
+
+.navbar .nav-link {
+    color: rgba(255, 255, 255, .78);
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: #fff;
+}
+
+.btn-primary {
+    --bs-btn-bg: var(--trail-forest);
+    --bs-btn-border-color: var(--trail-forest);
+    --bs-btn-hover-bg: var(--trail-deep);
+    --bs-btn-hover-border-color: var(--trail-deep);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--trail-forest);
+    --bs-btn-border-color: var(--trail-forest);
+    --bs-btn-hover-bg: var(--trail-forest);
+    --bs-btn-hover-border-color: var(--trail-forest);
+}
+
+.place-card {
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.place-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 1rem 2rem rgba(23, 45, 37, .13);
+}
+
+.home-page main.container,
+.explore-page main.container,
+.hotels-page main.container,
+.auth-page main.container {
+    max-width: none;
+    padding: 0 !important;
+}
+
+.cinematic-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: min(790px, calc(100svh - 65px));
+    width: 100%;
+    overflow: hidden;
+    color: white;
+    background:
+        linear-gradient(90deg, rgba(10, 25, 22, .82) 0%, rgba(12, 27, 24, .52) 48%, rgba(12, 27, 24, .14) 100%),
+        linear-gradient(0deg, rgba(9, 22, 18, .46), transparent 55%),
+        url("https://upload.wikimedia.org/wikipedia/commons/0/06/Ananthagiri_forest_in_AP_W_IMG_9371.jpg") center 52% / cover;
+}
+
+.cinematic-hero::after {
+    position: absolute;
+    right: 8%;
+    bottom: 9%;
+    width: 110px;
+    height: 1px;
+    background: var(--trail-brass);
+    content: "";
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    width: min(1120px, calc(100% - 3rem));
+    margin-inline: auto;
+    padding-block: 6rem;
+}
+
+.hero-eyebrow {
+    color: #f1d29b;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+}
+
+.hero-title {
+    max-width: 760px;
+    margin-block: 1.1rem;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(3rem, 8vw, 6.6rem);
+    font-weight: 500;
+    letter-spacing: -.045em;
+    line-height: .98;
+}
+
+.hero-description {
+    max-width: 580px;
+    color: rgba(255, 255, 255, .86);
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    line-height: 1.7;
+}
+
+.hero-actions .btn {
+    padding: .8rem 1.25rem;
+}
+
+.hero-actions .btn-light {
+    border-color: var(--trail-paper);
+}
+
+.home-features {
+    width: min(1120px, calc(100% - 2rem));
+    margin: -2.2rem auto 0;
+    position: relative;
+    z-index: 2;
+}
+
+.home-feature-card {
+    border: 1px solid rgba(21, 58, 52, .1);
+    border-radius: .85rem;
+    background: var(--trail-paper);
+    box-shadow: 0 .75rem 2rem rgba(27, 43, 35, .1);
+    transition: transform .2s ease;
+}
+
+.home-feature-card:hover {
+    transform: translateY(-4px);
+}
+
+.home-note {
+    width: min(1120px, calc(100% - 2rem));
+    margin: 2rem auto;
+}
+
+.destination-hero {
+    position: relative;
+    display: flex;
+    align-items: end;
+    min-height: 390px;
+    width: 100%;
+    padding: 3.5rem max(calc((100vw - 1120px) / 2), 1.5rem);
+    overflow: hidden;
+    color: white;
+    background:
+        linear-gradient(0deg, rgba(13, 30, 25, .88), rgba(13, 30, 25, .08) 80%),
+        url("https://upload.wikimedia.org/wikipedia/commons/e/e8/Charminar_12032013.jpg") center 43% / cover;
+}
+
+.destination-hero h1 {
+    max-width: 760px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    letter-spacing: -.035em;
+}
+
+.destination-hero p {
+    max-width: 650px;
+    color: rgba(255, 255, 255, .86);
+    font-size: 1.1rem;
+}
+
+.photo-credit {
+    position: absolute;
+    right: max(calc((100vw - 1120px) / 2), 1.5rem);
+    bottom: .75rem;
+    margin: 0;
+    color: rgba(255, 255, 255, .82);
+    font: .7rem/1.4 "Segoe UI", Arial, sans-serif;
+}
+
+.photo-credit a {
+    color: inherit;
+}
+
+.cinematic-hero .photo-credit {
+    bottom: 3.2rem;
+    padding: .3rem .5rem;
+    border-radius: .25rem;
+    background: rgba(12, 28, 24, .58);
+}
+
+.destination-content,
+.hotel-content {
+    width: min(1120px, calc(100% - 2rem));
+    margin: 2rem auto 4rem;
+}
+
+.destination-image {
+    min-height: 190px;
+    border-radius: .75rem .75rem 0 0;
+    background:
+        linear-gradient(0deg, rgba(12, 28, 24, .28), transparent 65%),
+        url("https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=80") center / cover;
+}
+
+.destination-card[data-category="Historical"] .destination-image {
+    background-image:
+        linear-gradient(0deg, rgba(12, 28, 24, .28), transparent 65%),
+        url("https://upload.wikimedia.org/wikipedia/commons/e/e8/Charminar_12032013.jpg");
+}
+
+.destination-card[data-category="Nature"] .destination-image,
+.destination-card[data-category="Lake"] .destination-image,
+.destination-card[data-category="Wildlife"] .destination-image {
+    background-image:
+        linear-gradient(0deg, rgba(12, 28, 24, .28), transparent 65%),
+        url("https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=80");
+}
+
+.destination-card[data-category="Religious"] .destination-image {
+    background-image:
+        linear-gradient(0deg, rgba(12, 28, 24, .3), transparent 65%),
+        url("https://images.unsplash.com/photo-1606293926075-69a00dbfde81?auto=format&fit=crop&w=1000&q=80");
+}
+
+.hotel-hero {
+    position: relative;
+    display: flex;
+    align-items: end;
+    min-height: 380px;
+    width: 100%;
+    padding: 3rem max(calc((100vw - 1120px) / 2), 1.5rem);
+    color: white;
+    background:
+        linear-gradient(0deg, rgba(16, 29, 25, .8), rgba(16, 29, 25, .1) 85%),
+        url("https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=2200&q=85") center 55% / cover;
+}
+
+.hotel-hero h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.7rem, 6vw, 4.8rem);
+}
+
+.hotel-image {
+    min-height: 210px;
+    border-radius: .75rem .75rem 0 0;
+    background:
+        linear-gradient(0deg, rgba(19, 37, 31, .2), transparent 65%),
+        url("https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=80") center / cover;
+}
+
+.hotel-content .row > div:nth-child(even) .hotel-image {
+    background-image:
+        linear-gradient(0deg, rgba(19, 37, 31, .2), transparent 65%),
+        url("https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1000&q=80");
+}
+
+.planner-shell {
+    position: relative;
+    isolation: isolate;
+    padding: clamp(1.25rem, 4vw, 3rem);
+    border-radius: 1.25rem;
+    background:
+        linear-gradient(135deg, rgba(239, 244, 236, .96), rgba(247, 243, 232, .92)),
+        url("https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1800&q=80") center / cover fixed;
+}
+
+.planner-shell > .container {
+    max-width: 1120px;
+}
+
+.planner-shell > .container > .card,
+.planner-shell .place-card,
+.planner-shell > .container > .alert {
+    border: 1px solid rgba(21, 58, 52, .11);
+    border-radius: .85rem;
+    box-shadow: 0 .5rem 1.5rem rgba(29, 47, 39, .07);
+}
+
+.auth-backdrop {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: calc(100svh - 65px);
+    width: 100%;
+    padding: 3rem 1.25rem;
+    background:
+        linear-gradient(115deg, rgba(12, 19, 18, .86), rgba(14, 21, 19, .45)),
+        url("https://upload.wikimedia.org/wikipedia/commons/e/e8/Charminar_12032013.jpg") center 43% / cover;
+}
+
+.auth-card {
+    border: 1px solid rgba(255, 255, 255, .35);
+    border-radius: 1.1rem;
+    background: rgba(248, 246, 239, .84);
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .28);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.auth-card .card-body {
+    padding: clamp(1.5rem, 5vw, 2.75rem);
+}
+
+.auth-kicker {
+    color: #8b6a36;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+.content-section {
+    width: min(1120px, calc(100% - 2rem));
+    margin: 2.5rem auto;
+}
+
+.content-section > .card,
+.content-section .card {
+    border-color: rgba(21, 58, 52, .1);
+    border-radius: .85rem;
+}
+
+@media (max-width: 767.98px) {
+    .cinematic-hero {
+        min-height: 690px;
+        background-position: 58% center;
+    }
+
+    .hero-content {
+        padding-block: 4rem 6rem;
+    }
+
+    .home-features {
+        margin-top: 1rem;
+    }
+
+    .destination-hero,
+    .hotel-hero {
+        min-height: 310px;
+    }
+
+    .planner-shell {
+        padding: .75rem;
+        background-attachment: scroll;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+}

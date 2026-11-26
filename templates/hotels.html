@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block body_class %}hotels-page{% endblock %}
+{% block content %}
+<section class="hotel-hero">
+    <div>
+        <p class="hero-eyebrow">A softer place to land</p>
+        <h1>Stay a little longer.</h1>
+        <p class="mb-0">Explore stays from the local collection and check availability with the provider.</p>
+    </div>
+</section>
+<div class="hotel-content">
+<form method="get" action="{{ url_for('hotels') }}" class="input-group mb-4">
+    <label class="visually-hidden" for="q">Search hotels or locations</label>
+    <input id="q" name="q" class="form-control" value="{{ search_text }}" placeholder="Search hotel or location">
+    <button class="btn btn-primary">Search</button>
+</form>
+<div class="row g-3">
+    {% for hotel in hotels.itertuples() %}
+        <div class="col-md-6 col-xl-4">
+            <article class="card hotel-card h-100">
+                <div class="hotel-image" role="img" aria-label="Hotel interior background"></div>
+                <div class="card-body">
+                    <h2 class="h5">{{ hotel.Place }}</h2>
+                    <p>{{ hotel.Description }}</p>
+                    <a class="btn btn-sm btn-outline-primary" target="_blank" rel="noopener"
+                       href="https://www.booking.com/searchresults.html?ss={{ hotel.Place|urlencode }}">Check on Booking.com</a>
+                    <a class="btn btn-sm btn-outline-secondary" target="_blank" rel="noopener"
+                       href="https://www.google.com/maps/search/?api=1&amp;query={{ hotel.Latitude }},{{ hotel.Longitude }}">Map</a>
+                </div>
+            </article>
+        </div>
+    {% else %}
+        <div class="col-12"><p>No matching stays in the local dataset.</p></div>
+    {% endfor %}
+</div>
+</div>
+{% endblock %}

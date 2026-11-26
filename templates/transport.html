@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="h2">{{ kind }} search</h1>
+<p class="text-muted">Search external providers for availability and current prices. This demo does not retrieve fares or make bookings.</p>
+<form method="get" action="{{ url_for(endpoint) }}" class="row g-3 mb-4">
+    <div class="col-md-4">
+        <label for="origin" class="form-label">From</label>
+        <input id="origin" name="origin" class="form-control" value="{{ origin }}" required maxlength="100">
+    </div>
+    <div class="col-md-4">
+        <label for="destination" class="form-label">To</label>
+        <input id="destination" name="destination" class="form-control" value="{{ destination }}" required maxlength="100">
+    </div>
+    <div class="col-md-2">
+        <label for="date" class="form-label">Travel date</label>
+        <input id="date" name="date" type="date" class="form-control" value="{{ travel_date }}">
+    </div>
+    <div class="col-md-2 d-grid align-self-end"><button class="btn btn-primary">Search providers</button></div>
+</form>
+{% if searches %}
+    <h2 class="h5">Continue your search</h2>
+    <div class="list-group">
+        {% for provider, href in searches %}
+            <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+               href="{{ href }}" target="_blank" rel="noopener">
+                Search {{ origin }} to {{ destination }} on {{ provider }}
+                <span aria-hidden="true">↗</span>
+            </a>
+        {% endfor %}
+    </div>
+    <p class="small text-muted mt-3">These links open provider searches or search-engine results for the selected provider. Confirm all details and booking terms on the provider’s site.</p>
+{% endif %}
+{% endblock %}
